@@ -38,16 +38,21 @@
 
         <section id="producao" class="section-padding grid-clean">
             <h2>Produção Agrícola e Economia</h2>
-            <div class="content-block">
-                <article>
-                    <h3>Força Econômica</h3>
-                    <p>O agronegócio é um dos principais motores da economia, representando cerca de um quarto do PIB nacional. Ele garante a segurança alimentar e gera milhões de empregos no campo e na cidade.</p>
-                </article>
-                <div class="graphic-placeholder">
-                    <p>[ Gráfico: Crescimento do Agro vs. Áreas Preservadas ]</p>
-                </div>
-            </div>
-        </section>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<section id="producao" class="section-padding grid-clean">
+    <h2>Produção Agrícola e Economia</h2>
+    <div class="content-block">
+        <article>
+            <h3>Força Econômica</h3>
+            <p>O agronegócio é um dos principais motores da economia, representando cerca de um quarto do PIB nacional. Ele garante a segurança alimentar e gera milhões de empregos no campo e na cidade.</p>
+        </article>
+        <div class="graphic-container" style="position: relative; width: 100%; height: 300px;">
+            <canvas id="agroChart"></canvas>
+        </div>
+    </div>
+</section>
+          
 
         <section id="sustentabilidade" class="section-padding bg-light">
             <h2>Tecnologias Sustentáveis no Campo</h2>
