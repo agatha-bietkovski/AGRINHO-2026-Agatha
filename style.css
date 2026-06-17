@@ -431,4 +431,17 @@ h2 {
 
 .btn-submit {
     width: 100%;
+    padding: 14px;
+    background-color: var(--accent-green);
+    color: var(--text-light);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
 
+.btn-submit:hover {
+    background-color: var(--primary-color);
+}
