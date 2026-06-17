@@ -4,19 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agro Forte, Futuro Sustentável</title>
-    <!-- Link para folha de estilos externa (CSS) -->
     <link rel="stylesheet" href="style.css">
-    <!-- Ícones externos (Opcional - FontAwesome) -->
     <script src="https://fontawesome.com" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <!-- CABEÇALHO E NAVEGAÇÃO -->
     <header class="header">
         <div class="logo">
             <a href="#inicio">Agro<span>Sustentável</span></a>
         </div>
-        <!-- Botão Menu Hambúrguer para Celular -->
         <button class="menu-toggle" aria-label="Abrir Menu">&#9776;</button>
         <nav class="nav-menu">
             <ul>
@@ -32,7 +28,6 @@
     </header>
 
     <main>
-        <!-- BANNER PRINCIPAL (INÍCIO) -->
         <section id="inicio" class="banner">
             <div class="banner-content">
                 <h1>Agro forte, futuro sustentável</h1>
@@ -41,7 +36,6 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 1: PRODUÇÃO AGRÍCOLA -->
         <section id="producao" class="section-padding grid-clean">
             <h2>Produção Agrícola e Economia</h2>
             <div class="content-block">
@@ -50,37 +44,31 @@
                     <p>O agronegócio é um dos principais motores da economia, representando cerca de um quarto do PIB nacional. Ele garante a segurança alimentar e gera milhões de empregos no campo e na cidade.</p>
                 </article>
                 <div class="graphic-placeholder">
-                    <!-- Espaço para Gráfico Interativo -->
                     <p>[ Gráfico: Crescimento do Agro vs. Áreas Preservadas ]</p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 2: SUSTENTABILIDADE E TECNOLOGIA -->
         <section id="sustentabilidade" class="section-padding bg-light">
             <h2>Tecnologias Sustentáveis no Campo</h2>
             <p class="section-subtitle">Inovações tecnológicas que reduzem o impacto ambiental e aumentam a eficiência.</p>
             
             <div class="cards-container">
-                <!-- Card 1 -->
                 <div class="card">
                     <div class="card-icon">🎯</div>
                     <h3>Agricultura de Precisão</h3>
                     <p>Uso de sensores de solo e satélites para aplicar insumos apenas onde é necessário.</p>
                 </div>
-                <!-- Card 2 -->
                 <div class="card">
                     <div class="card-icon">💧</div>
                     <h3>Irrigação Inteligente</h3>
                     <p>Sistemas automatizados de gotejamento que evitam o desperdício de água.</p>
                 </div>
-                <!-- Card 3 -->
                 <div class="card">
                     <div class="card-icon">🛸</div>
                     <h3>Drones Agrícolas</h3>
                     <p>Mapeamento aéreo detalhado para monitorar a saúde da lavoura e pragas.</p>
                 </div>
-                <!-- Card 4 -->
                 <div class="card">
                     <div class="card-icon">☀️</div>
                     <h3>Energia Renovável</h3>
@@ -89,7 +77,6 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 3: DESAFIOS AMBIENTAIS -->
         <section id="desafios" class="section-padding bg-dark text-light">
             <h2>Desafios Ambientais Críticos</h2>
             <div class="grid-two-columns">
@@ -104,7 +91,6 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 4: SOLUÇÕES E FUTURO -->
         <section id="solucoes" class="section-padding text-center">
             <div class="container-narrow">
                 <h2>Soluções para o Equilíbrio</h2>
@@ -115,23 +101,21 @@
             </div>
         </section>
 
-        <!-- DESAFIO COMPLEMENTAR: QUIZ INTERATIVO -->
         <section id="quiz" class="section-padding bg-green-accent text-light">
             <div class="quiz-container">
                 <h2>Quiz: Você conhece o Agro Sustentável?</h2>
                 <div class="quiz-card" id="quiz-box">
                     <p class="quiz-question">Qual destas tecnologias foca diretamente na economia de recursos hídricos?</p>
                     <div class="quiz-options">
-                        <button class="btn-option" onclick="verificarResposta(false)">A) Drones agrícolas</button>
-                        <button class="btn-option" onclick="verificarResposta(true)">B) Irrigação inteligente</button>
-                        <button class="btn-option" onclick="verificarResposta(false)">C) Energia solar fotovoltaica</button>
+                        <button class="btn-option" data-correct="false">A) Drones agrícolas</button>
+                        <button class="btn-option" data-correct="true">B) Irrigação inteligente</button>
+                        <button class="btn-option" data-correct="false">C) Energia solar fotovoltaica</button>
                     </div>
                     <p id="quiz-feedback" class="quiz-feedback"></p>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 5: CONTATO E CONSCIENTIZAÇÃO -->
         <section id="contato" class="section-padding bg-light">
             <div class="container-form">
                 <h2>Faça Parte do Futuro</h2>
@@ -156,14 +140,11 @@
         </section>
     </main>
 
-    <!-- RODAPÉ -->
     <footer class="footer">
         <p>&copy; 2026 Projeto Agro Sustentável. Desenvolvido para fins educativos.</p>
         <p>Alinhado com as competências de Planejamento Web e Educação Ambiental.</p>
     </footer>
 
-    <!-- Link para a lógica de programação (JS) -->
     <script src="script.js"></script>
 </body>
 </html>
-
