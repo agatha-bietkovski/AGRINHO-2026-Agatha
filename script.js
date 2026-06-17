@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initQuiz();
   initFormValidation();
   initScrollEffects();
+  initChart(); // Inicializa o gráfico de verdade
 });
 
 /* =========================
@@ -120,40 +121,3 @@ function showError(input, message) {
 
   const error = document.createElement("small");
   error.className = "error-message";
-  error.textContent = message;
-  error.style.color = "red";
-
-  group.appendChild(error);
-  input.style.borderColor = "red";
-}
-
-function clearError(input) {
-  const group = input.parentElement;
-  const error = group.querySelector(".error-message");
-
-  if (error) error.remove();
-
-  input.style.borderColor = "";
-}
-
-/* =========================
-   SCROLL ANIMATION
-========================= */
-function initScrollEffects() {
-  const elements = document.querySelectorAll("section, .card");
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
-    });
-  }, {
-    threshold: 0.15
-  });
-
-  elements.forEach(el => {
-    el.classList.add("hidden");
-    observer.observe(el);
-  });
-}
