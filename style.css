@@ -1,457 +1,123 @@
-/* ==========================================================================
-   1. RESET GLOBAL E CONFIGURAÇÕES BASE
-   ========================================================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+document.addEventListener("DOMContentLoaded", () => {
+  initMenuMobile();
+  initCardsInteraction();
+  initQuiz();
+  initFormValidation();
+  initScrollEffects();
+  initChart(); // Inicializa o gráfico de verdade
+});
+
+/* =========================
+   MENU MOBILE
+========================= */
+function initMenuMobile() {
+  const toggle = document.querySelector(".menu-toggle");
+  const menu = document.querySelector(".nav-menu");
+
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener("click", () => {
+    menu.classList.toggle("active");
+  });
+
+  document.querySelectorAll(".nav-menu a").forEach(link => {
+    link.addEventListener("click", () => {
+      menu.classList.remove("active");
+    });
+  });
 }
 
-:root {
-    --primary-color: #1b4332;       /* Verde floresta escuro para o cabeçalho e títulos */
-    --accent-green: #2d6a4f;        /* Verde médio para seções de destaque */
-    --light-green: #d8f3dc;         /* Fundo verde bem claro para o quiz */
-    --cta-color: #52b788;           /* Verde brilhante para botões de ação */
-    --dark-neutral: #1a1e21;        /* Grafite escuro para blocos de desafios */
-    --light-neutral: #f4f7f6;       /* Cinza claro para fundos alternados */
-    --text-dark: #2d3748;           /* Cor padrão de leitura */
-    --text-light: #ffffff;          /* Texto para fundos escuros */
-    --transition: all 0.3s ease;
+/* =========================
+   CARDS INTERATIVOS
+========================= */
+function initCardsInteraction() {
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    card.addEventListener("click", () => {
+      card.classList.toggle("active");
+    });
+  });
 }
 
-body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-    color: var(--text-dark);
-    background-color: #ffffff;
-    scroll-behavior: smooth;
+/* =========================
+   QUIZ
+========================= */
+function initQuiz() {
+  const feedback = document.getElementById("quiz-feedback");
+  const options = document.querySelectorAll(".btn-option");
+
+  if (!feedback || options.length === 0) return;
+
+  options.forEach(button => {
+    button.addEventListener("click", () => {
+      const isCorrect = button.dataset.correct === "true";
+
+      if (isCorrect) {
+        feedback.textContent = "✔ Correto! Irrigação inteligente economiza água.";
+        feedback.style.color = "#2ecc71";
+      } else {
+        feedback.textContent = "✖ Errado! Tente novamente.";
+        feedback.style.color = "#e74c3c";
+      }
+
+      options.forEach(btn => btn.disabled = true);
+
+      setTimeout(() => {
+        options.forEach(btn => btn.disabled = false);
+      }, 1500);
+    });
+  });
 }
 
-/* Utilitários Gerais */
-.section-padding {
-    padding: 80px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+/* =========================
+   FORMULÁRIO
+========================= */
+function initFormValidation() {
+  const form = document.getElementById("contact-form");
+
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome");
+    const email = document.getElementById("email");
+    const mensagem = document.getElementById("mensagem");
+
+    let valid = true;
+
+    clearError(nome);
+    clearError(email);
+    clearError(mensagem);
+
+    if (nome.value.trim().length < 3) {
+      showError(nome, "Nome inválido");
+      valid = false;
+    }
+
+    if (!email.value.includes("@")) {
+      showError(email, "E-mail inválido");
+      valid = false;
+    }
+
+    if (mensagem.value.trim().length < 10) {
+      showError(mensagem, "Mensagem muito curta");
+      valid = false;
+    }
+
+    if (valid) {
+      form.reset();
+      alert("Mensagem enviada com sucesso!");
+    }
+  });
 }
 
-.bg-light {
-    background-color: var(--light-neutral);
-    max-width: 100%;
-    padding-left: calc((100% - 1200px) / 2 + 20px);
-    padding-right: calc((100% - 1200px) / 2 + 20px);
-}
+/* =========================
+   ERROS FORMULÁRIO
+========================= */
+function showError(input, message) {
+  const group = input.parentElement;
 
-.bg-dark {
-    background-color: var(--dark-neutral);
-    max-width: 100%;
-    padding-left: calc((100% - 1200px) / 2 + 20px);
-    padding-right: calc((100% - 1200px) / 2 + 20px);
-}
-
-.text-light {
-    color: var(--text-light);
-}
-
-.text-center {
-    text-align: center;
-}
-
-h2 {
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    margin-bottom: 30px;
-    position: relative;
-}
-
-.bg-dark h2 {
-    color: var(--text-light);
-}
-
-/* ==========================================================================
-   2. CABEÇALHO E NAVEGAÇÃO (HEADER)
-   ========================================================================== */
-.header {
-    background-color: var(--primary-color);
-    padding: 15px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.logo a {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--text-light);
-    text-decoration: none;
-    letter-spacing: -0.5px;
-}
-
-.logo span {
-    color: var(--cta-color);
-}
-
-.nav-menu ul {
-    display: flex;
-    list-style: none;
-    gap: 25px;
-}
-
-.nav-menu a {
-    color: #b7e4c7;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-.nav-menu a:hover {
-    color: var(--text-light);
-}
-
-/* Botão do Menu Hamburguer (Oculto no Desktop) */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--text-light);
-    font-size: 1.8rem;
-    cursor: pointer;
-}
-
-/* ==========================================================================
-   3. BANNER PRINCIPAL (INÍCIO)
-   ========================================================================== */
-.banner {
-    background: linear-gradient(rgba(27, 67, 50, 0.85), rgba(45, 106, 79, 0.75)), 
-                url('https://unsplash.com') no-repeat center center/cover;
-    height: 75vh;
-    min-height: 450px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 20px;
-}
-
-.banner-content h1 {
-    font-size: 3.2rem;
-    color: var(--text-light);
-    margin-bottom: 20px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-}
-
-.banner-content p {
-    font-size: 1.3rem;
-    color: #e9ecef;
-    max-width: 700px;
-    margin: 0 auto 35px auto;
-}
-
-.btn-cta {
-    display: inline-block;
-    background-color: var(--cta-color);
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 700;
-    padding: 15px 35px;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(82, 183, 136, 0.4);
-    transition: var(--transition);
-}
-
-.btn-cta:hover {
-    background-color: #74c69d;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(82, 183, 136, 0.6);
-}
-
-/* ==========================================================================
-   4. SEÇÃO 1: PRODUÇÃO AGRÍCOLA (GRID CLEAN)
-   ========================================================================== */
-.grid-clean .content-block {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-    margin-top: 30px;
-}
-
-.grid-clean h3 {
-    font-size: 1.5rem;
-    color: var(--accent-green);
-    margin-bottom: 15px;
-}
-
-.graphic-placeholder {
-    background-color: #e9ecef;
-    border: 2px dashed #95d5b2;
-    border-radius: 12px;
-    height: 250px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    color: #495057;
-    font-weight: 500;
-}
-
-/* ==========================================================================
-   5. SEÇÃO 2: CARDS DE SUSTENTABILIDADE
-   ========================================================================== */
-.section-subtitle {
-    font-size: 1.1rem;
-    margin-top: -15px;
-    margin-bottom: 40px;
-    color: #555;
-}
-
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 25px;
-}
-
-.card {
-    background-color: #ffffff;
-    padding: 30px 25px;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-    border-top: 5px solid var(--accent-green);
-    transition: var(--transition);
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-}
-
-.card-icon {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
-
-.card h3 {
-    font-size: 1.3rem;
-    color: var(--primary-color);
-    margin-bottom: 12px;
-}
-
-.card p {
-    font-size: 0.95rem;
-    color: #555;
-}
-
-/* ==========================================================================
-   6. SEÇÃO 3: DESAFIOS AMBIENTAIS CRÍTICOS
-   ========================================================================== */
-.grid-two-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-}
-
-.grid-two-columns ul {
-    list-style: none;
-}
-
-.grid-two-columns li {
-    margin-bottom: 20px;
-    font-size: 1.05rem;
-    position: relative;
-    padding-left: 25px;
-}
-
-.grid-two-columns li::before {
-    content: "✕";
-    position: absolute;
-    left: 0;
-    color: #e63946;
-    font-weight: bold;
-}
-
-.grid-two-columns li strong {
-    color: var(--cta-color);
-    display: block;
-    font-size: 1.1rem;
-    margin-bottom: 4px;
-}
-
-.media-placeholder {
-    background-color: #2b3035;
-    border-radius: 12px;
-    height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #9aa0a6;
-    text-align: center;
-    padding: 20px;
-}
-
-/* ==========================================================================
-   7. SEÇÃO 4: SOLUÇÕES (CONTAINER NARROW)
-   ========================================================================== */
-.container-narrow {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.question-highlight {
-    font-size: 1.4rem;
-    font-style: italic;
-    color: var(--accent-green);
-    font-weight: 600;
-    margin: 30px auto;
-    padding: 20px;
-    border-left: 4px solid var(--cta-color);
-    background-color: var(--light-neutral);
-    border-radius: 0 8px 8px 0;
-}
-
-/* ==========================================================================
-   8. COMPLEMENTAR: QUIZ INTERATIVO
-   ========================================================================== */
-.bg-green-accent {
-    background-color: var(--accent-green);
-    max-width: 100%;
-    padding-left: calc((100% - 1200px) / 2 + 20px);
-    padding-right: calc((100% - 1200px) / 2 + 20px);
-}
-
-.quiz-container {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.quiz-card {
-    background-color: #ffffff;
-    color: var(--text-dark);
-    padding: 40px 30px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    margin-top: 30px;
-}
-
-.quiz-question {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 25px;
-    color: var(--primary-color);
-}
-
-.quiz-options {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.btn-option {
-    background-color: var(--light-neutral);
-    border: 2px solid #e2e8f0;
-    color: var(--text-dark);
-    padding: 14px 20px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    text-align: left;
-    transition: var(--transition);
-}
-
-.btn-option:hover {
-    background-color: var(--light-green);
-    border-color: var(--cta-color);
-}
-
-.quiz-feedback {
-    margin-top: 20px;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-/* ==========================================================================
-   9. SEÇÃO 5: FORMULÁRIO DE CONTATO
-   ========================================================================== */
-.container-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.container-form p {
-    margin-bottom: 30px;
-    color: #555;
-}
-
-#contact-form {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-}
-
-.form-group {
-    margin-bottom: 22px;
-    text-align: left;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--primary-color);
-    font-size: 0.95rem;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-    color: var(--text-dark);
-    transition: var(--transition);
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--accent-green);
-    box-shadow: 0 0 0 4px rgba(45, 106, 79, 0.15);
-}
-
-.btn-submit {
-    width: 100%;
-    padding: 14px;
-    background-color: var(--accent-green);
-    color: var(--text-light);
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.btn-submit:hover {
-    background-color: var(--primary-color);
-}
-/* ==========================================================================
-   10. AJUSTE DO GRÁFICO (CHART.JS)
-   ========================================================================== */
-.graphic-container {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
+  const error = document.createElement("small");
+  error.className = "error-message";
