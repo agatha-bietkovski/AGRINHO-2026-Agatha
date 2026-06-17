@@ -121,3 +121,84 @@ function showError(input, message) {
 
   const error = document.createElement("small");
   error.className = "error-message";
+  error.textContent = message;
+  error.style.color = "red";
+
+  group.appendChild(error);
+  input.style.borderColor = "red";
+}
+
+function clearError(input) {
+  const group = input.parentElement;
+  const error = group.querySelector(".error-message");
+
+  if (error) error.remove();
+
+  input.style.borderColor = "";
+}
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+function initScrollEffects() {
+  const elements = document.querySelectorAll("section, .card");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  }, {
+    threshold: 0.15
+  });
+
+  elements.forEach(el => {
+    el.classList.add("hidden");
+    observer.observe(el);
+  });
+}
+
+/* =========================
+   CRIADOR DO GRÁFICO (CHART.JS)
+========================= */
+function initChart() {
+  const ctx = document.getElementById('agroChart');
+  if (!ctx) return;
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['2020', '2022', '2024', '2026'],
+      datasets: [
+        {
+          label: 'Crescimento do Agro (Índice %)',
+          data: [100, 115, 128, 142],
+          backgroundColor: '#52b788',
+          borderColor: '#2d6a4f',
+          borderWidth: 1
+        },
+        {
+          label: 'Áreas Preservadas (Índice %)',
+          data: [100, 102, 105, 106],
+          backgroundColor: '#1b4332',
+          borderColor: '#1b4332',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Evolução Comparativa (%)'
+          }
+        }
+      }
+    }
+  });
+}
