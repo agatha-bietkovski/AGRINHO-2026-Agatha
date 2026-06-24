@@ -1,5 +1,3 @@
-/* Seu estilo original mantido até a seção 9... */
-
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +8,7 @@
     --primary-color: #1b4332;       
     --accent-green: #2d6a4f;        
     --light-green: #d8f3dc;         
-    --cta-color: #52b788;           
+    --cta-color: #52b788;            
     --dark-neutral: #1a1e21;        
     --light-neutral: #f4f7f6;       
     --text-dark: #2d3748;           
@@ -251,18 +249,6 @@ h2 {
     margin-bottom: 4px;
 }
 
-.media-placeholder {
-    background-color: #2b3035;
-    border-radius: 12px;
-    height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #9aa0a6;
-    text-align: center;
-    padding: 20px;
-}
-
 .container-narrow {
     max-width: 800px;
     margin: 0 auto;
@@ -405,9 +391,6 @@ h2 {
     background-color: var(--primary-color);
 }
 
-/* ==========================================================================
-   10. AJUSTE DO GRÁFICO (CHART.JS) E ANIMAÇÃO DE SCROLL (ESSENCIAL!)
-   ========================================================================== */
 .graphic-container {
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
@@ -416,7 +399,6 @@ h2 {
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-/* Suporte à animação de scroll do JS */
 .hidden {
     opacity: 0;
     filter: blur(2px);
@@ -428,4 +410,91 @@ h2 {
     opacity: 1;
     filter: blur(0);
     transform: translateY(0);
-}}
+}
+
+/* ==========================================================================
+   ESTILOS ADICIONADOS PARA O CARROSSEL INTERATIVO
+   ========================================================================== */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-track {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    z-index: 1;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+    color: #ffffff;
+    padding: 20px 15px 15px 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: none;
+    font-size: 1.5rem;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background-color: var(--cta-color);
+    color: var(--primary-color);
+}
+
+.prev-btn { left: 15px; }
+.next-btn { right: 15px; }
+
+/* Rodapé Estilos Básicos */
+.footer {
+    background-color: var(--dark-neutral);
+    color: #9aa0a6;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.9rem;
+    border-top: 1px solid #2b3035;
+}
+.footer p { margin-bottom: 5px; }
