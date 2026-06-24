@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initQuiz();
   initFormValidation();
   initScrollEffects();
-  initChart(); // Inicializa o gráfico de verdade
+  initChart();
+  initCarousel(); // Inicializa o novo carrossel de imagens
 });
 
 /* =========================
@@ -201,4 +202,36 @@ function initChart() {
       }
     }
   });
+}
+
+/* =========================
+   CARROSSEL (IMPACTOS E REGENERAÇÃO)
+========================= */
+function initCarousel() {
+  const slides = document.querySelectorAll(".carousel-slide");
+  const nextBtn = document.querySelector(".next-btn");
+  const prevBtn = document.querySelector(".prev-btn");
+  
+  if (slides.length === 0 || !nextBtn || !prevBtn) return;
+
+  let currentSlide = 0;
+
+  function changeSlide(index) {
+    slides[currentSlide].classList.remove("active");
+    currentSlide = (index + slides.length) % slides.length;
+    slides[currentSlide].classList.add("active");
+  }
+
+  nextBtn.addEventListener("click", () => {
+    changeSlide(currentSlide + 1);
+  });
+
+  prevBtn.addEventListener("click", () => {
+    changeSlide(currentSlide - 1);
+  });
+
+  // Troca automática a cada 5 segundos
+  setInterval(() => {
+    changeSlide(currentSlide + 1);
+  }, 5000);
 }
